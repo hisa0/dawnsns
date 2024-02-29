@@ -12,7 +12,7 @@ class ModalController extends Controller
 
     public function modal()
     {
-
+// aaaaaaaaa
         $id = Auth::id();
         $posts = DB::table('posts')
         ->where('user_id','=',$id)
