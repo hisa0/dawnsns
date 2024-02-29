@@ -12,6 +12,7 @@ class ModalController extends Controller
 
     public function modal()
     {
+// xxxxxx
 
         $id = Auth::id();
         $posts = DB::table('posts')
