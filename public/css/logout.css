@@ -1,0 +1,153 @@
+@chasert "utf-8";
+
+html {
+    text-align: center;
+    height: 100%;
+}
+
+body {
+    text-align: center;
+    background: transparent linear-gradient(180deg, #3C4767 0%, #3C4767 58%, #DF563B 100%) 0% 0% no-repeat padding-box;
+    /*mix-blend-mode: darken;*/
+    opacity: 1;
+    width: 100%;
+
+}
+
+h1 {
+    padding-top: 188px;
+    text-align: center;
+    background: transparent url('img/1924_01_login_anti.png') 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+header {
+    width: 100%;
+    height: 100%;
+}
+
+/*::::::::::Social Network Service::::::::::*/
+.dawnsns-title {
+    padding-bottom: 66px;
+    color: #fff;
+    font: normal normal normal 28px/42px Meiryo;
+}
+
+/*::::::::::conteiner{ブロック要素}::::::::::*/
+#container {
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/*::::::::::Mail_Adress Pass_Word::::::::::*/
+.form-group,
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #0000002B;
+    border-radius: 8px;
+    /*要素を縦に並べる*/
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 31px;
+}
+
+/*::::::::::DAWNSNSへようこそ::::::::::*/
+.label {
+    padding-top: 34px;
+    padding-bottom: 31px;
+}
+
+/*::::::::::FORM::label::::::::::*/
+
+label,
+.label-class {
+    padding-top: 14px;
+    text-align: left;
+}
+
+/*::::::::::ログインボタンリセット用::::::::::*/
+input[type="submit"] {
+    appearance: none;
+    /*padding: 0;*/
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+
+}
+
+/*::::::::::LOGIN/REGISTER::::::::::*/
+input[type="submit"] {
+    font: normal normal normal 14px/21px Meiryo;
+    letter-spacing: 1.4px;
+    color: #FFFEFE;
+    opacity: 1;
+    border-radius: 6px;
+    background: #4B71CAB3 0% 0% no-repeat padding-box;
+    padding: 4px 28px 4px 28px;
+}
+
+.submit {
+    display: block;
+    text-align: right;
+    padding-top: 24px;
+}
+
+
+/*::::::::::新規ユーザーの方はこちら_1/ログイン画面へ戻る_2/ログイン画面へ_3::::::::::*/
+.link_btn_1,
+.link_btn_2,
+.link_btn_3 {
+    padding-top: 35px;
+    padding-bottom: 21px;
+    text-align: center;
+
+}
+
+.link_btn_1 a,
+.link_btn_2 a,
+.link_btn_3 a {
+    color: #fff;
+}
+
+
+.input {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    opacity: 1;
+    height: 29px;
+    margin-top: 5px;
+}
+
+/*::::::::::errors::::::::::*/
+.errors {
+    color: #DF563B;
+}
+
+/*::::::::::added::::::::::*/
+.username {
+    font: normal normal normal 18px/27px Meiryo;
+}
+
+.welcome {
+    margin-bottom: 27px;
+}
+
+.welcome_2 {
+    text-align: left;
+}
+
+.welcome_letter {
+    font-size: 13px;
+}
+
+.container {
+    white-space: nowrap;
+}
+
+/*モバイル用*/
+@media screen and (max-width:500px) {}

@@ -1,0 +1,2 @@
+<x-modal>
+</x-modal>

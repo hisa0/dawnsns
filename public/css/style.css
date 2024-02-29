@@ -1,0 +1,515 @@
+@charset "utf-8";
+
+html {
+    overflow: auto;
+}
+
+body {
+    width: 100%;
+}
+
+header {
+    background: #3C4767;
+    justify-content: center;
+}
+
+/*::::::::::::::::::::::::::::::::::::::::::*/
+/*                  header                  */
+/*::::::::::::::::::::::::::::::::::::::::::*/
+#head {
+    display: flex;
+}
+
+.header_logo {
+    margin-left: 40px;
+    flex-grow: 0;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    margin-left: 1000px;
+}
+
+
+.header_name {
+    color: #fff;
+}
+
+.header_list {
+    position: absolute;
+    margin-left: 70px;
+    margin-bottom: 10px;
+}
+
+
+/*チェックボックス非表示*/
+.menu input[type="checkbox"] {
+    display: none;
+}
+
+.menu label {
+    cursor: pointer;
+    color: #fff;
+}
+
+/*コンテンツ開閉*/
+.menu ul {
+    position: absolute;
+    list-style: none;
+    margin-top: 55px;
+}
+
+
+#acd_ul li {}
+
+/*【開:list】*/
+.menu li {
+    visibility: hidden;
+    overflow-y: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.menu li a {
+    color: #6C6C6C;
+    font-size: 20px;
+
+}
+
+/*【開】list表示*/
+#acd_id:checked~#acd_ul li {
+    visibility: visible;
+    opacity: 1;
+    border: 1px solid #6C6C6C;
+    background-color: #fff;
+}
+
+/*矢印アイコンデザイン*/
+.menu label::after {
+    /* 擬似要素で矢印アイコンをつくる */
+    content: '';
+    border-top: solid 2px #fff;
+    border-right: solid 2px #fff;
+    width: 8px;
+    height: 8px;
+    /* 矢印アイコンの位置を設定 */
+    position: absolute;
+    top: 5%;
+    bottom: 0;
+    margin: auto;
+    transform: translateY(-50%) rotate(135deg);
+}
+
+.menu input[type=checkbox]:checked+label:after {
+    content: '';
+    border-top: #fff 2px solid;
+    border-right: #fff 2px solid;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 5%;
+    bottom: 0;
+    margin: auto;
+    transform: rotate(-45deg);
+}
+
+
+/*:::::::::: main content ::::::::::*/
+#row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+/*::::::::::tweet全体要素::::::::::*/
+#container {
+    flex: 0 0 80%;
+    position: relative;
+    flex-grow: 0;
+    color: #6C6C6C;
+}
+
+/*::::::::::side-bar::::::::::*/
+/*全体*/
+#side-bar {
+    flex: 0 0 19%;
+    border-left: 1px solid #6C6C6C;
+    flex-grow: 1;
+    color: #6C6C6C;
+}
+
+#confirm {
+    margin-top: 13px;
+    padding-bottom: 35.5px;
+    border-bottom: 2.5px solid #D7D7D7;
+}
+
+/*username*/
+.username {
+    margin-left: 15.5px;
+}
+
+/*follow/follower*/
+.follow,
+.follower {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+}
+
+.follow {
+    margin-top: 5px;
+}
+
+.side-bar-btn {}
+
+.btn1,
+.btn2 {
+    text-align: right;
+    margin-right: 65.5px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.btn3 {
+    text-align: center;
+    margin-top: 45.5px;
+}
+
+.side-bar-btn a {
+    color: #fff;
+    background: #3C4767 0% 0% no-repeat padding-box;
+    padding: 11px 20px 11px 20px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+
+
+.tweets {}
+
+.container_tweet {
+    padding-bottom: 5px;
+    border-bottom: solid #D7D7D7;
+    border-width: 5px;
+}
+
+/*::::::::::::::::::::::::::::::::::::::::::*/
+/*          tweet要素-tweet機能部分          */
+/*::::::::::::::::::::::::::::::::::::::::::*/
+/*tweet全体*/
+
+/*user icon image*/
+.user_icon {
+    border-radius: 50%;
+}
+
+/*new tweet*/
+/*text入力ボックス*/
+form textarea {
+    margin-left: 20px;
+    display: inline-block;
+    max-width: 1200px;
+    box-sizing: border-box;
+    font: normal normal normal 16px Meiryo;
+    line-height: 1;
+    height: calc(1.5em + 20px);
+    resize: none;
+    overflow: hidden;
+    min-height: 1em;
+    max-height: 6em;
+    font-family: inherit;
+    color: #6C6C6C;
+}
+
+::placeholder {
+    opacity: 0.5;
+}
+
+.tweet_btn {
+    margin-right: 250px;
+}
+
+.form-control {
+    /*枠線削除*/
+    border: none;
+    /*アウトライン削除*/
+    outline: none;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+}
+
+/*:::::::::::::::::::::::::::::*/
+/*          tweet全体          */
+/*:::::::::::::::::::::::::::::*/
+.tweet_all {
+    border-bottom: solid #D7D7D7;
+    border-width: 2.5px;
+}
+
+.tweet {
+    display: flex;
+    margin-left: 29px;
+    margin-top: 28px;
+}
+
+
+.tweet_data {
+    margin-top: 20px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.tweet_i_n_t {
+    display: flex;
+    align-items: flex-start;
+
+}
+
+/*:: tweet_date[_name,_time] ::*/
+
+.tweet_name {
+    margin-left: 25px;
+}
+
+.tweet_time {
+    text-align: right;
+    flex-grow: 1;
+    margin-right: 40px;
+}
+
+/*----------------------------------*/
+/*:: tweet_text ::*/
+.tweet_text {
+    display: inline-block;
+    align-items: center;
+    margin-left: 80px;
+    margin-right: 160px;
+}
+
+/*:::::::::::::::::::::::::::::::::::*/
+/*::::::::::更新・削除:::::::::::*/
+/*全体*/
+.btns {
+    display: flex;
+    justify-content: right;
+    margin-right: 50px;
+    align-items: center;
+}
+
+/*更新ボタン*/
+.btn_up {}
+
+/*削除ボタン*/
+.btn_del {
+    margin-left: 20px;
+}
+
+/*削除ボタン　反転*/
+.btn_del:hover {
+    background: #B95656;
+}
+
+.btn_del img:hover {
+    filter: brightness(0) invert(1);
+}
+
+/*ボタン要素リセット*/
+button {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+/*::::::::::::::::::::::::::::*/
+/*           search           */
+/*::::::::::::::::::::::::::::*/
+.container-search {
+    justify-content: center;
+
+}
+
+/*ユーザー検索*/
+input[class=search-name] {
+    width: 390px;
+    margin-top: 20px;
+    margin-left: 48px;
+    margin-bottom: 24.5px;
+    border-color: 1px #D7D7D7;
+    border-radius: 5px;
+    opacity: 1;
+    font-size: 18px;
+    padding: 8px 5px 8px 5px;
+}
+
+div[class=search-name] {
+    border-bottom: 5px solid #D7D7D7;
+    opacity: 1;
+}
+
+.search-btn {
+    margin-left: 10px;
+}
+
+/*ユーザー一覧*/
+.search-users ul {
+    display: flex;
+    align-items: center;
+    margin-left: 90px;
+    margin-top: 30px;
+    margin-right: 240px;
+}
+
+.search-result-image {
+    flex-grow: 0;
+}
+
+.search-result-name {
+    flex-grow: 1;
+    margin-left: 10px;
+
+}
+
+/*フォローする＿ボタン*/
+.search-follow_btn {
+    display: flex;
+    flex-grow: 2;
+    font-size: 14px;
+    color: #fff;
+    background: #4B71CABF 0% 0% no-repeat padding-box;
+    padding: 11px 27px 11px 27px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+
+.search-unFollow_btn {
+    display: flex;
+    flex-grow: 2;
+    font-size: 14px;
+    color: #fff;
+    background: #B95656 0% 0% no-repeat padding-box;
+    padding: 11px 13px 11px 13px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+/*:::::::::::::::::::::::::::::*/
+/*           profile           */
+/*:::::::::::::::::::::::::::::*/
+.container-profile {
+    display: flex;
+    margin-top: 53px;
+    margin-left: 125px;
+
+}
+
+.profile_icon {}
+
+.profiles {
+    flex-wrap: nowrap;
+}
+
+.profile-date {
+    display: flex;
+    margin-bottom: 37px;
+    margin-top: 18px;
+    margin-left: 25px;
+}
+
+.profile-date li {
+    left: 400px;
+}
+
+.profile {
+    display: flex;
+    font-size: 25px;
+    align-items: center;
+}
+
+
+.profile-name,
+.profile-mail,
+.profile-pass,
+.profile-new-pass,
+.profile-bio {
+    position: absolute;
+    display: flex;
+    font-size: 25px;
+    margin-left: 55px;
+    border-bottom: 1px solid #707070;
+}
+
+/*profile-image*/
+.profile-image {
+    display: flex;
+    align-items: baseline;
+    padding: 60px 134px 60px 134px;
+    background: #F2F2F2 0% 0% no-repeat padding-box;
+    margin-left: 110px;
+    border-bottom: 1px solid #707070;
+}
+
+.profile-image label {
+    background-color: #fff;
+    padding: 10px 20px 10px 20px;
+}
+
+label[for=p-image] {
+    background: #fff 0% 0% no-repeat padding-box;
+    padding: 6px 15px 6px 15px;
+}
+
+.profile-form {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    background: #F2F2F2 0% 0% no-repeat padding-box;
+    font-size: 25px;
+    color: #6C6C6C;
+    padding-left: 5px;
+}
+
+/*更新ボタン*/
+.profile-form-btn {
+    display: flex;
+    margin-left: 455px;
+    font-size: 18px;
+    padding: 11px 53px 11px 53px;
+    color: #fff;
+    background: #7B9979 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+/*:::::::::: Follow/followerリスト ::::::::::*/
+
+.container-follow,
+.container-follower {
+    border-bottom: 5px solid #D7D7D7;
+}
+
+label[for=follow-list],
+[for=follower-list] {
+    font-size: 28px;
+}
+
+.follow-list,
+.follower-list {
+    margin-top: 21px;
+    margin-left: 43px;
+}
+
+.follow-users,
+.follower-users {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 13px;
+    margin-bottom: 17.5px;
+}
