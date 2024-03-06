@@ -63,7 +63,17 @@ public function unFollow(Request $request)
         $follower_count = DB::table('follows')//followerユーザー数
                 ->where('follower',$user)
                 ->count();
-        return view('follows.followList',['users' => $users,'follows'=>$follows,'followers' => $followers,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+
+        $posts = DB::table('posts')//フォローユーザーのデータ
+        ->leftJoin('follows','follows.follow','=','posts.user_id')
+        ->leftJoin('users','posts.user_id','=','users.id')
+        ->select('posts.id','posts.user_id','posts.posts','posts.created_at','users.images')->latest()
+        ->get();
+
+        $user_name = DB::table('users')
+            ->get();
+
+        return view('follows.followList',['users' => $users,'follows'=>$follows,'followers' => $followers,'follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts,'user_name'=>$user_name]);
     }
 
     public function followerList()

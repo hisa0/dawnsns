@@ -130,22 +130,24 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
-        $id = $request->input('id');
-
         $new_username = $request->input('newUsername');
         $new_mail = $request->input('newMail');
         $new_pass = $request->input('newPass');
         $new_bio = $request->input('newBio');
-        $file = $request->file('file')->getClientOriginalName();
+        $file = $request->file('file')->getClientOriginalName();//Call to a member function getClientOriginalName() on null　※調べる
+                    dd($file);
             DB::table('users')
             ->where('id', Auth::id())
             ->update([
                 'username' => $new_username,
+                'mail'=> $new_mail,
+                'password' => $new_pass,
+                'bio' => $new_bio,
                 'images' => $file
             ]);
 
-            $request->file('file')->storeAs('public/images',$file);
-        //更新処理記載する
-    }
+            $request->file('file')->storeAs('public/storage/images',$file);
+        return redirect('/profile');
+        }
 
 }

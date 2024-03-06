@@ -18,7 +18,6 @@
     <!--iphoneのアプリアイコン指定-->
     <link rel="apple-touch-icon-precomposed" href="画像のURL" />
     <!--OGPタグ/twitterカード-->
-    @livewireStyles
 </head>
 <!-- ログイン時TOPページ -->
 <body>
@@ -75,8 +74,7 @@
     </div>
     <footer>
     </footer>
+    <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/resources/js/app.js"></script>
-    <script src="/resources/js/bootstrap.js"></script>
-    @livewireScripts
 </body>
 </html>

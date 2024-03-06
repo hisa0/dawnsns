@@ -54,14 +54,15 @@ Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');
 Route::get('/logout','PostsController@logout');
 
+Route::post('post/update','PostsController@update');//ツイート編集
+
 //編集・投稿・削除
-Route::get('{id}/modal', 'modalController@modal');//モーダル画面
+
 Route::prefix('post')
     ->middleware('auth')
     ->group(function (){
       Route::post('create','PostsController@create');//ツイート投稿
       Route::get('{id}/delete','PostsController@delete')->name('delete');//ツイート削除
-      Route::post('{id}/update','PostsController@update');//ツイート編集
     });
 
     //follow

@@ -12,15 +12,4 @@ class UploadController extends Controller
     return view('index');
     }
 
-
-public function store(Request $request)
-{
-    $file_name = $request->file('file')->getClientOriginalName();
-    $request->file('file')->storeAs('',$file_name);
-    dd($request->file('file'));
-}
-
-
-
-
 }

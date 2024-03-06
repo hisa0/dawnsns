@@ -75,6 +75,7 @@ class PostsController extends Controller
     {
         $id = $request->input('id');
         $up_post = $request->input('upPost');
+
         DB::table('posts')
             ->where('id', $id)
             ->update(

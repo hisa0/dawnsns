@@ -1,11 +1,18 @@
-require('./bootstrap');
+srequire('./bootstrap');
 
-<script>
-  $(function(){
-    //クリックで動
-    $('.acd_trigger').click(function () {
-      $(this).toggleClass('active');
-      $(this).next('acd').slideToggle();
-    })
+
+$(function () {
+  $('.modalopen').each(function () {
+    $(this).on('click', function () {
+      var target = $(this).data('target');
+      var modal = document.getElementById(target);
+      console.log(modal);
+      $(modal).fadeIn();
+      return false;
+    });
   });
-</script>
+  $('.update').on('click', function () {
+    $('.js-modal').fadeOut();
+    return false;
+  });
+});
