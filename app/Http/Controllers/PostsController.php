@@ -29,10 +29,9 @@ class PostsController extends Controller
         $id = Auth::id();//認証ユーザーID
 
         $posts = DB::table('posts')
+        ->leftJoin('users','users.id','=','posts.user_id')
         ->leftJoin('follows','follows.follow','=','posts.user_id')
-        ->leftJoin('users','posts.user_id','=','users.id')
-        ->select('posts.id','posts.user_id','posts.posts','posts.created_at','users.images')->latest()
-        ->get();
+        ->select('posts.id','posts.user_id','posts.posts','posts.created_at','users.id','users.username','users.images','follows.follow','follows.follower')->latest()->get();
 
         $user_name = DB::table('users')
             ->get();
