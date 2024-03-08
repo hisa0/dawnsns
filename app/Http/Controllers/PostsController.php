@@ -29,9 +29,18 @@ class PostsController extends Controller
         $id = Auth::id();//認証ユーザーID
 
         $posts = DB::table('posts')
-        ->leftJoin('users','users.id','=','posts.user_id')
         ->leftJoin('follows','follows.follow','=','posts.user_id')
-        ->select('posts.id','posts.user_id','posts.posts','posts.created_at','users.id','users.username','users.images','follows.follow','follows.follower')->latest()->get();
+        ->leftJoin('users','users.id','=','posts.user_id')
+        ->select(
+            'posts.id','posts.user_id','posts.posts','posts.created_at',
+            'follows.follow','follows.follower',
+            'users.id','users.username','users.images'
+            )->latest()->get();
+
+        $modal_post = DB::table('posts')
+        ->leftJoin('users','users.id','=','posts.user_id')
+        ->select('posts.id','posts.user_id','posts.posts')
+        ->get();
 
         $user_name = DB::table('users')
             ->get();
@@ -43,7 +52,7 @@ class PostsController extends Controller
         $follower_count = DB::table('follows')
             ->where('follower',$id)
             ->count();
-        return view('posts.index',['posts' => $posts,'user_name'=>$user_name,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('posts.index',['posts' => $posts,'modal_post' => $modal_post,'user_name' => $user_name,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
     public function register()

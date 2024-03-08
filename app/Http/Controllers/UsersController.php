@@ -16,6 +16,8 @@ class UsersController extends Controller
         $email = Auth::user()->email;
         $password = Auth::user()->password;
 
+        // $rules = ['parameter' => \Illuminate\Validation\Rule::not_in(array_keys($password))];//入力規制
+
         $follow_count = DB::table('follows')
             ->where('follow',$id)
             ->count();
