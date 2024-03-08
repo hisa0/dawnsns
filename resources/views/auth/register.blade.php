@@ -10,33 +10,61 @@
 
 {{ Form::label('UserName') }}
 {{ Form::text('username',null,['class' => 'input'])}}
-<p class="errors">{{ $errors->has('username') ? '入力必須です' : '' }}</p>
-<br>
+@if ($errors->has('username'))
+<p class="errors">
+  <tr>
+    @foreach($errors->get('username') as $message)
+    {{ $message }}
+    @endforeach
+  </tr>
+</p>
+@endif
 
 {{ Form::label('MailAdress') }}
 {{ Form::text('mail',null,['class' => 'input'])}}
-<p class="errors">{{ $errors->has('mail') ? '入力必須です' : ''}}</p>
-<br>
+@if ($errors->has('mail'))
+<p class="errors">
+  <tr>
+    @foreach($errors->get('mail') as $message)
+    {{ $message }}
+    @endforeach
+  </tr>
+</p>
+@endif
 
 {{ Form::label('Password') }}
 {{ Form::text('password',null,['class' => 'input']) }}
-<p class="errors">{{ $errors->has('password') ? '入力必須です' : ''}}</p>
-
-<br>
+@if ($errors->has('password'))
+<p class="errors">
+  <tr>
+    @foreach($errors->get('password') as $message)
+    {{ $message }}
+    @endforeach
+  </tr>
+</p>
+@endif
 
 {{ Form::label('password_confirm') }}
 {{ Form::text('password_confirmation',null,['class' => 'input']) }}
-<p class="errors">{{ $errors->has('password_confirm') ? '入力必須です' : ''}}</p>
+@if ($errors->has('password'))
+<p class="errors">
+  <tr>
+    @foreach($errors->get('password') as $message)
+    {{ $message }}
+    @endforeach
+  </tr>
+</p>
+@endif
 
-@if ($errors->any())
+<!-- @if ($errors->any())
     <div class="alert alert-danger">
       <ul>
         @foreach ($errors->all() as $error)
-
+            <li>{{ $error }}</li>
         @endforeach
       </ul>
     </div>
-@endif
+@endif -->
 
 <div class="submit">
 {{ Form::submit('REGISTER') }}

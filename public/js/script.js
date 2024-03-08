@@ -7,13 +7,11 @@ $(function () {
       var modal = document.getElementById(target);
       console.log(modal);
       $(modal).fadeIn();
-      return false;
     });
   });
   $('.update').on('click', function () {
     $('button').submit(function () {
     });
     $('.js-modal').fadeOut();
-    return false;
   });
 });
