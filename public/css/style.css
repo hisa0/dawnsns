@@ -114,9 +114,6 @@ header {
     transform: rotate(-45deg);
 }
 
-.header_user_icon {
-    margin-left: 40px;
-}
 
 /*:::::::::: main content ::::::::::*/
 #row {
@@ -310,6 +307,7 @@ form textarea {
 }
 
 .modal-inner {
+    /*modalの画面固定*/
     overflow-y: scroll;
     display: flex;
     justify-content: center;
@@ -446,6 +444,8 @@ div[class=search-name] {
     margin-left: 125px;
 
 }
+
+
 
 .profiles {
     flex-wrap: nowrap;

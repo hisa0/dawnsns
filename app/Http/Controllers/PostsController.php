@@ -14,7 +14,7 @@ class PostsController extends Controller
     }
 
 //::::::バリデーションルール:::::://
-    public function validator(Request $request,$id)
+    public function validator(Request $request)
     {
         $validateData = $request->validate([
             'username' => 'required|string|max:255',
@@ -26,11 +26,7 @@ class PostsController extends Controller
 //::::::投稿内容表示:::::://
     public function index()
     {
-        $user = Auth::id();//認証ユーザーID
-
-        $id = DB::table('posts')
-            ->select('id','posts')
-            ->get();
+        $id = Auth::id();//認証ユーザーID
 
         $posts = DB::table('posts')
         ->leftJoin('follows','follows.follow','=','posts.user_id')
@@ -41,55 +37,24 @@ class PostsController extends Controller
             'users.username','users.images'
             )->latest()->get();
 
+
+        $modal_post = DB::table('posts')
+        ->leftJoin('users','users.id','=','posts.user_id')
+        ->select('posts.id','posts.user_id','posts.posts')
+        ->get();
+
         $user_date = DB::table('users')
             ->get();
 
         $follow_count = DB::table('follows')
-            ->where('follow',$user)
+            ->where('follow',$id)
             ->count();
 
         $follower_count = DB::table('follows')
-            ->where('follower',$user)
+            ->where('follower',$id)
             ->count();
-
-        return view('posts.index',['id'=>$id,'posts' => $posts,'posts' => $posts,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('posts.index',['posts' => $posts,'modal_post' => $modal_post,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
-
-        public function modal($id)
-        {
-
-        $post = DB::table('posts')
-        ->where('id','=',$id)
-        ->first();
-
-        $user = Auth::id();//認証ユーザーID
-
-        $id = DB::table('posts')
-            ->select('id','posts')
-            ->get();
-
-        $posts = DB::table('posts')
-        ->leftJoin('follows','follows.follow','=','posts.user_id')
-        ->leftJoin('users','users.id','=','posts.user_id')
-        ->select(
-            'posts.id','posts.user_id','posts.posts','posts.created_at',
-            'follows.follow','follows.follower',
-            'users.username','users.images'
-            )->latest()->get();
-
-        $user_date = DB::table('users')
-            ->get();
-
-        $follow_count = DB::table('follows')
-            ->where('follow',$user)
-            ->count();
-
-        $follower_count = DB::table('follows')
-            ->where('follower',$user)
-            ->count();
-
-        return view('posts.index',['id'=>$id,'posts' => $posts,'posts' => $posts,'follow_count' => $follow_count,'follower_count' => $follower_count]);
-        }
 
     public function register()
     {

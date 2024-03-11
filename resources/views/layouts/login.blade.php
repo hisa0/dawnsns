@@ -20,7 +20,6 @@
     <!--OGPタグ/twitterカード-->
     <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="/js/script.js"></script>
-
 </head>
 <!-- ログイン時TOPページ -->
 <body>
@@ -44,7 +43,7 @@
                         <li><a href="/logout">ログアウト</a></li>
                     </ul>
             </div>
-                    <a href="#"><img src="/storage/images/{{ Auth::user()->images }}" class= "user_icon header_user_icon"></a>
+
         </div>
 </div>
 </header>
