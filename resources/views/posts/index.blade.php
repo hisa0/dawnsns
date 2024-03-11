@@ -1,6 +1,5 @@
 @extends('layouts.login')
 
-
 @section('content')
 <body>
   <!-- 投稿画面 -->
@@ -22,7 +21,6 @@
           </div>
       </div>
     </div>
-
 
 <!--投稿内容の表示-->
   <div class="tweet_all_date">
@@ -48,34 +46,29 @@
                             <div class="modal-update">
                             <!-- 編集/削除button -->
                             <div class="btns">
-                                <button type="submit" class="modal-open" data-target="updateModal" href="/post/{{ $post->id }}/update"><img src="/images/edit.png" alt="編集"/></button>
+                        <button type="submit" class="modal-open" data-target="updateModal" href="{{ $post->id }}/modal"><img src="/images/edit.png" alt="編集"/></a>
+                        </button>
                                 <a class="btn_del btn-success primary" href="/post/{{ $post->id }}/delete" onclick="return confirm('このつぶやきを削除します。よろしいでしょうか？')" ><img src="images/trash.png" alt="削除"/></a>
                             </div>
                       </div>
         @endif
               </div>
           </div>
-      @endforeach
+    @endforeach
   </div>
-</body>
 
-<!-- ::::::::::::::::::::::::::::::::: modal :::::::::::::::::::::::::::::::::-->
-@foreach($posts as $post)
-                        <div class="modal-main js-modal" id="updateModal">
-                                    <div class="modal-inner"><!--白背景-->
-                                        <div class="modal_window">
-                                            <div class="inner-content"><!--モーダル中身-->
-                                                    {!!Form::open(['url'=>'/post/update'])!!}
-                                                    {!!Form::textarea('upPost', $post->posts,['required'])!!}
-                                                    {!!Form::hidden('id', $post->id) !!}
-                                                    <div class="btns">
-                                                      <button type="submit" class="update" href="/post/{{ $post->id }}/update"><img src="/images/edit.png" alt="更新"/></button>
-                                                    </div>
-                                                    {!!Form::close()!!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-@endforeach
-<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+</body>
+      <div class="modal-main js-modal" id="updateModal">
+                <div class="modal-inner"><!--白背景-->
+                    <div class="modal_window">
+                        <div class="inner-content"><!--モーダル中身-->
+                            {!!Form::open(['url'=>['/post/update'],'method'=>'POST'])!!}
+                            {!!Form::hidden('$post->id') !!}
+                            {!!Form::textarea('upPost', $post->posts,['required','maxlength'=>'150'])!!}
+                            <button type="image" src="/images/edit.png" class="update_modal"></button>
+                            {!!Form::close()!!}
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -57,7 +57,7 @@ Route::get('/logout','PostsController@logout');
 Route::post('post/update','PostsController@update');//ツイート編集
 
 //編集・投稿・削除
-
+Route::get('{id}/modal', 'PostsController@modal');
 Route::prefix('post')
     ->middleware('auth')
     ->group(function (){

@@ -7,8 +7,8 @@
                   {!! Form::open(['url' => '/follow']) !!}
                   {!! Form::label('follow-list','Follow list') !!}
                   {!! Form::close() !!}
-            @if($follower_post->isNotEmpty())
-                  @foreach ($follower_post as $post)
+            @if($posts->isNotEmpty())
+                  @foreach ($posts as $post)
                   @if(Auth::user()->id == $post->follower)
                                     <div class="follow-users">
                                           <a href="/{{$post->id}}/profile"><img src="/storage/images/{{$post->images }}" class= "user_icon"></a>
@@ -18,7 +18,7 @@
             @endif
       </div>
       <!-- フォローユーザーの投稿 -->
-      @foreach ($follower_post as $post)
+      @foreach ($posts as $post)
       @if(Auth::user()->id == $post->follower)
             <div class="tweet_all">
                   <div class="tweet_data">

@@ -29,23 +29,28 @@ class UsersController extends Controller
         return view('users.profile',['user' =>$user,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
-    public function otherProfile()
+    public function otherProfile($id)
     {
-        $id = Auth::id();//認証ユーザーID
+        $auth = Auth::id();//認証ユーザーID
 
-        $users = DB::table('users')
-                ->leftJoin('follows','follows.follow','=','users.id')
-                ->select('users.id','users.username','follows.follower')
-                ->get();
+        $id;//followユーザーid
+
+        $users = DB::table('follows')
+            ->where('follower',$auth)
+            ->leftJoin('users','users.id','=','follows.follow')
+            ->select(
+                'users.id','users.username','users.bio',
+                'follows.follower','follows.follow')
+            ->get();
 
         $follow_count = DB::table('follows')
-            ->where('follow',$id)
+            ->where('follow',$auth)
             ->count();
         $follower_count = DB::table('follows')
-            ->where('follower',$id)
+            ->where('follower',$auth)
             ->count();
 
-        return view('users.profile',['users' => $users,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('users.profile',['id' => $id,'users' => $users,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
     //:::ユーザー検索top::://
