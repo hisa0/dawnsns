@@ -22,71 +22,95 @@ header {
 
 .header_logo {
     margin-left: 40px;
-    flex-grow: 0;
+
 }
 
-.menu {
+.header-menu {
     display: flex;
     align-items: center;
-    margin-left: 1000px;
+    margin-right: 0;
+    margin-left: auto;
+    width: 277px
 }
 
 
 .header_name {
+    position: absolute;
     color: #fff;
+    margin-left: 30px;
 }
 
 .header_list {
-    position: absolute;
-    margin-left: 70px;
-
+    position: relative;
+    margin-right: 30px;
+    width: 277px
 }
 
+.header_user_icon {
+    margin-right: 60px;
+}
 
 /*チェックボックス非表示*/
-.menu input[type="checkbox"] {
+input[type="checkbox"] {
     display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
-.menu label {
+
+.header_list label {
     cursor: pointer;
     color: #fff;
     margin-left: 20px;
 }
 
 /*コンテンツ開閉*/
-.menu ul {
+.header_list ul {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    list-style: none;
-    margin-top: 55px;
+    margin-top: 58px;
+    width: 277px;
+    height: 108px;
+    text-align: center;
+    align-items: center;
 }
-
-
 
 /*【開:list】*/
-.menu li {
-    visibility: hidden;
-    overflow-y: hidden;
-    text-align: center;
+.header_list li {
+    display: none;
+    position: relative;
     white-space: nowrap;
+    width: 277px;
+    line-height: 110px;
 }
 
-.menu li a {
+
+.header_list li a {
+    display: block;
     color: #6C6C6C;
     font-size: 20px;
+    height: 108px;
+}
 
+.header_list li a:hover {
+    display: block;
+    background-color: #E2563B;
+    color: #fff;
 }
 
 /*【開】list表示*/
 #acd_id:checked~#acd_ul li {
-    visibility: visible;
+    display: block;
     opacity: 1;
     border: 1px solid #6C6C6C;
     background-color: #fff;
 }
 
 /*矢印アイコンデザイン*/
-.menu label::after {
+.header_list label::after {
     /* 擬似要素で矢印アイコンをつくる */
     content: '';
     border-top: solid 2px #fff;
@@ -97,11 +121,12 @@ header {
     position: absolute;
     top: 5%;
     bottom: 0;
+    right: 0;
     margin: auto;
     transform: translateY(-50%) rotate(135deg);
 }
 
-.menu input[type=checkbox]:checked+label:after {
+.header_list input[type=checkbox]:checked+label:after {
     content: '';
     border-top: #fff 2px solid;
     border-right: #fff 2px solid;
@@ -110,12 +135,9 @@ header {
     position: absolute;
     top: 5%;
     bottom: 0;
+    right: 0;
     margin: auto;
     transform: rotate(-45deg);
-}
-
-.header_user_icon {
-    margin-left: 40px;
 }
 
 /*:::::::::: main content ::::::::::*/
@@ -191,6 +213,7 @@ header {
 
 
 
+.tweets {}
 
 .container_tweet {
     padding-bottom: 5px;
@@ -248,6 +271,8 @@ form textarea {
 /*:::::::::::::::::::::::::::::*/
 /*          tweet全体          */
 /*:::::::::::::::::::::::::::::*/
+.tweet_all_date {}
+
 .tweet_all {
     border-bottom: solid #D7D7D7;
     border-width: 2.5px;
@@ -286,11 +311,18 @@ form textarea {
 
 /*----------------------------------*/
 /*:: tweet_text ::*/
+
 .tweet_text {
     display: inline-block;
     align-items: center;
     margin-left: 80px;
     margin-right: 160px;
+}
+
+.tweet_btn {
+    display: flex;
+    margin-left: auto;
+    margin-right: 115px;
 }
 
 /*:::::::::::::::::::::::::::::::::::*/
@@ -301,20 +333,24 @@ form textarea {
     justify-content: right;
     margin-right: 50px;
     align-items: center;
-
 }
 
 /*更新【モーダル表示】*/
-.modal-main {
+.modal-container {
     display: none;
 }
 
-.modal-inner {
+.modal-container:before {
+    content: "";
+}
+
+.modal-container.active {
+    opacity: 0.1;
     overflow-y: scroll;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;
@@ -322,6 +358,8 @@ form textarea {
     bottom: 0;
     z-index: 2;
 }
+
+.modal-inner {}
 
 .inner-content {
     align-items: center;
@@ -369,7 +407,6 @@ button {
 /*::::::::::::::::::::::::::::*/
 .container-search {
     justify-content: center;
-
 }
 
 /*ユーザー検索*/
@@ -386,8 +423,15 @@ input[class=search-name] {
 }
 
 div[class=search-name] {
-    border-bottom: 5px solid #D7D7D7;
     opacity: 1;
+    border-bottom: 5px solid #D7D7D7;
+    display: flex;
+    align-items: center;
+}
+
+.keyword {
+    margin-left: auto;
+    margin-right: 300px;
 }
 
 .search-btn {
@@ -441,14 +485,16 @@ div[class=search-name] {
 /*           profile           */
 /*:::::::::::::::::::::::::::::*/
 .container-profile {
-    display: flex;
     margin-top: 53px;
     margin-left: 125px;
-
 }
 
 .profiles {
     flex-wrap: nowrap;
+}
+
+.profile-box form {
+    display: flex;
 }
 
 .profile-date {
@@ -524,21 +570,88 @@ label[for=p-image] {
     opacity: 1;
 }
 
+/* ::::: profile-other ::::: */
+.container-o {
+    border-bottom: solid 5px #D7D7D7;
+}
+
+.profiles-o {
+    margin-left: 90px;
+}
+
+.profile-o {
+    margin-left: 40px;
+}
+
+.profile-o-u {
+    display: flex;
+    align-items: center;
+}
+
+.profile-o-u ul {
+    display: flex;
+}
+
+.profile-name-o {
+    margin-left: 70px;
+}
+
+.profile-o-b {
+    margin-left: 95px;
+}
+
+.profile_btn {
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
+    margin-bottom: 11.5px;
+}
+
+
+.profile-bio-o-text .profile-o-u ul {
+    display: flex;
+    align-items: center;
+}
+
+.profiles-o li {
+    list-style: none;
+}
+
+.profile-o,
+.profile-name-o,
+.profile-bio-o {
+    font-size: 20px;
+}
+
+.profile-bio-o-text {
+    font-size: 14px;
+}
+
+
 /*:::::::::: Follow/followerリスト ::::::::::*/
 
 
 label[for=follow-list],
 [for=follower-list] {
     font-size: 28px;
+    margin-left: 45px;
 }
 
 .follow-list,
 .follower-list {
-    display: flex;
     border-bottom: 5px solid #D7D7D7;
+    margin-top: 21px;
 }
 
 .follow-users,
 .follower-users {
-    margin-top: 45px;
+    display: flex;
+    margin-left: 95px;
+    margin-top: 26px;
+    margin-bottom: 17.5px;
+}
+
+.follow-users img,
+.follower-users img {
+    margin-left: 20px;
 }

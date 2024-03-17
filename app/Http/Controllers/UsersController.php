@@ -36,12 +36,20 @@ class UsersController extends Controller
         $id;//followユーザーid
 
         $users = DB::table('follows')
-            ->where('follower',$auth)
+            ->where('follow',$id)
             ->leftJoin('users','users.id','=','follows.follow')
             ->select(
-                'users.id','users.username','users.bio',
+                'users.id','users.username','users.bio','users.images',
                 'follows.follower','follows.follow')
             ->get();
+
+        $posts = DB::table('posts')
+        ->where('user_id',$id)
+        ->leftJoin('users','users.id','=','posts.user_id')
+        ->select(
+            'posts.id','posts.user_id','posts.posts','posts.created_at',
+            'users.username','users.images'
+            )->latest()->get();
 
         $follow_count = DB::table('follows')
             ->where('follow',$auth)
@@ -50,7 +58,7 @@ class UsersController extends Controller
             ->where('follower',$auth)
             ->count();
 
-        return view('users.profile',['id' => $id,'users' => $users,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('users.profile',['id' => $id,'users' => $users,'follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts]);
     }
 
     //:::ユーザー検索top::://
@@ -141,20 +149,32 @@ class UsersController extends Controller
         $new_mail = $request->input('newMail');
         $new_pass = $request->input('newPass');
         $new_bio = $request->input('newBio');
-        $file = $request->file('file')->getClientOriginalName();//Call to a member function getClientOriginalName() on null　※調べる
-                    dd($file);
+        $file = $request->file('file');
+
             DB::table('users')
             ->where('id', Auth::id())
             ->update([
                 'username' => $new_username,
                 'mail'=> $new_mail,
-                'password' => $new_pass,
                 'bio' => $new_bio,
-                'images' => $file
             ]);
 
+    if(!empty($new_pass)){
+            DB::table('users')
+            ->where('id', Auth::id())
+            ->update([
+            'password' => $new_pass,
+            ]);
+        }
+    if(!empty($file)){
+            DB::table('users')
+            ->where('id', Auth::id())
+            ->update([
+                'images' => $file
+            ]);
             $request->file('file')->storeAs('public/storage/images',$file);
-        return redirect('/profile');
+            }
+            return redirect('/profile');
         }
 
 }

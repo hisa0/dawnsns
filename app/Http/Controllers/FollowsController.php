@@ -74,10 +74,13 @@ public function unFollow(Request $request)
             ->latest()
         ->get();
 
-        $user_name = DB::table('users')
-            ->get();
+        $followUser = DB::table('follows')
+        ->where('follower',$user)
+        ->leftJoin('users','users.id','=','follows.follow')
+        ->select('users.id','users.username','users.images')
+        ->get();
 
-        return view('follows.followList',['users' => $users,'follows'=>$follows,'followers' => $followers,'follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts,'user_name'=>$user_name]);
+        return view('follows.followList',['follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts,'followUser'=>$followUser]);
     }
 
     public function followerList()
@@ -102,6 +105,11 @@ public function unFollow(Request $request)
             ->latest()
         ->get();
 
+        $followerUser = DB::table('follows')
+        ->where('follow',$user)
+        ->leftJoin('users','users.id','=','follows.follower')
+        ->select('users.id','users.username','users.images')
+        ->get();
 
         $follow_count = DB::table('follows')//followユーザー数
                 ->where('follow',$user)
@@ -109,6 +117,6 @@ public function unFollow(Request $request)
         $follower_count = DB::table('follows')//followerユーザー数
                 ->where('follower',$user)
                 ->count();
-        return view('follows.followerList',['users' => $users,'followers' => $followers,'follows' => $follows,'follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts]);
+        return view('follows.followerList',['follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts,'followerUser'=>$followerUser]);
     }
 }

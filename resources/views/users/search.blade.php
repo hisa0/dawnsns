@@ -8,10 +8,16 @@
       {!! Form::open(['route' =>['search/result'],'method' => 'post']) !!}
           <div class="search-name">
                 {!! Form::input('text', 'keyword', null, ['required', 'class' => 'search-name', 'placeholder' => 'ユーザー名']) !!}
-                <button type="submit" class="search-btn"><img src="/images/.png" alt="検索"/></button>
+                <button type="submit" class="search-btn">検索</button>
+                          <div class="keyword">
+            <label >検索ワード：</label>
+            @if(!empty($keyword))
+            {{ $keyword }}
+            @endif
+          </div>
           </div>
         {!! Form::close() !!}
-
+      </div>
         <!--ユーザー一覧-->
             @foreach($users as $user)
                 <div class="search-users">
@@ -44,7 +50,6 @@
                     @endif
                 </div>
               @endforeach
-      </div>
     </table>
 </body>
 

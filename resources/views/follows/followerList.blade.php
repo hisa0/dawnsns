@@ -8,16 +8,14 @@
       <div class="follower-list">
       {!! Form::open(['url' => '/follower']) !!}
       {!! Form::label('follower-list','Follower list') !!}
-      {!! Form::close() !!}
-      @if($posts->isNotEmpty())
-                  @foreach ($posts as $post)
-                  @if(Auth::user()->id == $post->follow)
+            @if($followerUser->isNotEmpty())
+            @foreach ($followerUser as $user)
                                     <div class="follow-users">
-                                          <a href="/{{$post->id}}/profile"><img src="/storage/images/{{$post->images }}" class= "user_icon"></a>
+                                          <a href="/{{$user->id}}/profile"><img src="/storage/images/{{$user->images }}" class= "user_icon"></a>
                                     </div>
-                  @endif
-                  @endforeach
+            @endforeach
             @endif
+      {!! Form::close() !!}
       </div>
 
       <!--$followersにデータが存在するときのみ実行-->
