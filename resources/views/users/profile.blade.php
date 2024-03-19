@@ -56,7 +56,6 @@
         {!! Form::open(['url' => route('other_profile',['id']),'method' => 'get']) !!}
             @foreach($users as $user)
                 <div class="profiles-o">
-                    @if($id == $user->follow )<!--$idユーザーとfollowユーザーが==なら以下実行 -->
                       <div class="profile-o-u">
                         <a href="#"><img src="/storage/images/{{ $user->images }}" class= "user_icon"></a>
                           <ul>
@@ -70,7 +69,6 @@
                                 <li class="profile-bio-o-text">{{ $user->bio }}</li>
                               </ul>
                 </div>
-                    @endif
                 </div>
                 @break
             @endforeach
@@ -103,7 +101,8 @@
       @foreach($posts as $post)
             @if($id == $post->user_id)
             <div class="tweet_all">
-                  <div class="tweet_data-o">
+                <div class="tweet_data">
+                  <div class="tweet_i_n_t_t">
                     <div class="tweet_i_n_t">
                       <a href="#"><img src="/storage/images/{{ $post->images }}" class= "user_icon"></a>
                       <p class="tweet_name">{{ $post->username}}</p>
@@ -111,6 +110,7 @@
                     </div>
                       <div class="tweet_text">{{ $post->posts }}</div>
                   </div>
+                </div>
             </div>
             @endif
         @endforeach

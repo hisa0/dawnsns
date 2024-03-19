@@ -18,21 +18,20 @@ class FollowsController extends Controller
     {
         return view('follows.followList',['follows'=>$follows]);
     }
-    //:::[follow]:::
+//[follow]::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function follow(Request $request)
-{
-    $user = Auth::id();//認証ユーザーid取得
-    $id = $request->input('id');//対象ユーザーid取得
+    {
+    $user = Auth::id();
+    $id = $request->input('id');
     DB::table('follows')->insert([
         'follow'=>$id,
         'follower'=> $user,
     ]);
-return redirect('/search');
-}
-//:::[un_follow]:::
-
-public function unFollow(Request $request)
-{
+    return back();
+    }
+//[un_follow]:::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    public function unFollow(Request $request)
+    {
     $user = Auth::id();
     $id = $request->input('id');
     DB::table('follows')->where([
@@ -40,22 +39,13 @@ public function unFollow(Request $request)
         'follower' =>$user,
         'follow' => $id
     ])->delete();
-        return redirect('/search');
-}
-
+        return back();
+    }
+//[followList]::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function followList()
     {
         $user = Auth::id();
         $users = DB::table('users')->get();
-
-        $follows = DB::table('follows')
-                ->where('follower','=',$user)//認証ユーザーとfollowerが同じ
-                ->get();
-
-        $followers = DB::table('follows')
-                ->join('users','users.id','=','follows.follow')
-                ->select('users.id','users.images')
-                ->get();
 
         $follow_count = DB::table('follows')//followユーザー数
                 ->where('follow',$user)
@@ -82,19 +72,11 @@ public function unFollow(Request $request)
 
         return view('follows.followList',['follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts,'followUser'=>$followUser]);
     }
-
+//[followerList]::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function followerList()
-        {
+    {
         $user = Auth::id();
-        $users = DB::table('users');
-        $followers = DB::table('follows')
-                ->where('follow','=',$user)//認証ユーザーとfollowが同じ
-                ->get();
 
-        $follows = DB::table('follows')
-                ->join('users','users.id','=','follows.follower')
-                ->select('users.id','users.images')
-                ->get();
         $posts = DB::table('posts')//フォローユーザーのデータ
         ->leftJoin('follows','follows.follower','=','posts.user_id')
         ->leftJoin('users','posts.user_id','=','users.id')

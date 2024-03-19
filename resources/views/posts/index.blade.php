@@ -50,12 +50,12 @@
                 </div>
                 <div class="tweet_text">{{ $post->posts }}</div>
                 <div class="btns">
-                    <input type="image" class="modal-open" data-target="updateModal" src="/images/edit.png" alt="編集"/>
+                    <input type="image" class="modal-open" data-target="updateModal{{$post->id}}" src="/images/edit.png" alt="編集"/>
                     <a class="btn_del btn-success primary" href="/post/{{ $post->id }}/delete" onclick="return confirm('このつぶやきを削除します。よろしいでしょうか？')" ><img src="images/trash.png" alt="削除"/></a>
                 </div>
           </div>
             <!-- ::::::::::モーダル部分:::::::::: -->
-            <div class="modal-container modal-main js-modal" id="updateModal">
+            <div class="modal-container modal-main js-modal" id="updateModal{{$post->id}}">
                 <div class="modal-inner"><!--白背景-->
                     <div class="modal_window">
                         <div class="inner-content"><!--モーダル中身-->

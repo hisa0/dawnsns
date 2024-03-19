@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
-    //:::プロフィール画面::://
-    public function profile(){
+//[プロフィール・自分]:::::::::::::::::::::::::::::::::::::::::::::::::::
+    public function profile()
+    {
         $id = Auth::id();//認証ユーザーID
+
         $user = DB::table('users')->find($id);
         $user_name = Auth::user()->username;
         $email = Auth::user()->email;
         $password = Auth::user()->password;
-
-        // $rules = ['parameter' => \Illuminate\Validation\Rule::not_in(array_keys($password))];//入力規制
 
         $follow_count = DB::table('follows')
             ->where('follow',$id)
@@ -28,16 +28,16 @@ class UsersController extends Controller
 
         return view('users.profile',['user' =>$user,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
-
+//[プロフィール・相手]:::::::::::::::::::::::::::::::::::::::::::::::::::
     public function otherProfile($id)
     {
         $auth = Auth::id();//認証ユーザーID
 
         $id;//followユーザーid
 
-        $users = DB::table('follows')
-            ->where('follow',$id)
-            ->leftJoin('users','users.id','=','follows.follow')
+        $users = DB::table('users')
+            ->leftJoin('follows','users.id','=','follows.follow')
+            ->where('users.id',$id)
             ->select(
                 'users.id','users.username','users.bio','users.images',
                 'follows.follower','follows.follow')
@@ -60,8 +60,7 @@ class UsersController extends Controller
 
         return view('users.profile',['id' => $id,'users' => $users,'follow_count' => $follow_count,'follower_count' => $follower_count,'posts'=>$posts]);
     }
-
-    //:::ユーザー検索top::://
+//[ユーザー検索top]::::::::::::::::::::::::::::::::::::::::::::::::::::::
         public function index()
     {
         $user = Auth::id();
@@ -69,8 +68,6 @@ class UsersController extends Controller
                 ->leftJoin('follows','follows.follow','=','users.id')
                 ->select('users.id','users.username','follows.follower')
                 ->get();
-        $follows = DB::table('follows')
-        ->get();
 
         $follow_count = DB::table('follows')//followユーザー数
                 ->where('follower',$user)
@@ -79,10 +76,10 @@ class UsersController extends Controller
                 ->where('follow',$user)
                 ->count();
 
-        return view('users.search',['users'=> $users,'follows' => $follows,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('users.search',['users'=> $users,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
-    //:::検索機能::://
+//[検索機能]:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function search(Request $request)
     {
         $user = Auth::id();
@@ -96,7 +93,6 @@ class UsersController extends Controller
         if(!empty($keyword)) {
         $query = $query->where('username', 'LIKE', "%{$keyword}%");
         }
-
         $users = $query->get();
 
         $follow_count = DB::table('follows')//followユーザー数
@@ -108,42 +104,7 @@ class UsersController extends Controller
 
         return view('users.search', ['users' => $users,'keyword' =>$keyword,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
-
-
-    public function follow(User $user)
-    {
-            $follower = auth()->user();//フォローチェック
-            $is_following = $follower->isFollowing($user->id);
-            if(!$is_following) //フォローしていなければフォローする
-            {
-                $follower->follow($user->id);
-                return back();
-            }
-    }
-
-    public function unfollow(User $user)//フォロー解除
-    {
-        $follower = auth()->user();//フォローチェック
-        $is_following = $follower->isFollowing($user->id);
-        if(!$is_following) //フォローしていればフォローを解除する
-        {
-            $follower->unfollow($user->id);
-            return back();
-        }
-    }
-
-    public function countFollowings()
-    {
-        $userId = Auth::user()->id;
-        $count_followings = \DB::connection('')
-            ->table('follows')
-            ->where('user_id', '=', $userId)
-            ->count();
-
-        return view('layouts.login', [
-            'count_followings' => $count_followings]);
-    }
-
+//[image保存機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function image(Request $request, User $user)
     {
         $images = $request->image;
@@ -154,6 +115,7 @@ class UsersController extends Controller
         return redirect("/user/{$user->id}")->with('user',$user);
     }
 
+//[profile更新機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function update(Request $request)
     {
         $new_username = $request->input('newUsername');

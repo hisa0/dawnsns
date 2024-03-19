@@ -47,7 +47,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
 
-     //バリデート
+//[バリデートルール]::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function validator(array $data)
     {
         return Validator::make($data, [
@@ -64,8 +64,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-
-    //DBに登録
+//[新規ユーザー登録]::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function create(array $data)
     {
         return User::create([
@@ -74,11 +73,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-
-
-    // public function registerForm(){
-    //     return view("auth.register");
-    // }
 
     public function register(Request $request)
     {

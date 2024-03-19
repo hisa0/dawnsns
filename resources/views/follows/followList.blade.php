@@ -9,7 +9,7 @@
             @if($followUser->isNotEmpty())
             <div class="follow-users">
             @foreach ($followUser as $user)
-                                          <a href="/{{$user->id}}/profile"><img src="/storage/images/{{$user->images }}" class= "user_icon"></a>
+            <a href="/{{$user->id}}/profile"><img src="/storage/images/{{$user->images }}" class= "user_icon"></a>
             @endforeach
             </div>
             @endif

@@ -19,45 +19,44 @@ use App\Http\Controllers\ModalController;
 
 //Auth::routes();
 
-//ログアウト中のページ
+//【ログアウト中のページ】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@login');
 
+//【新規登録】:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/register', 'Auth\RegisterController@register');
 Route::post('/register', 'Auth\RegisterController@register');
 
+//【新規登録完了】:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/added', 'Auth\RegisterController@added');
 
-
-//ログイン中のページ
+//【ログイン中のページ】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/index','PostsController@index');
 Route::get('/top','PostsController@index');
+Route::get('/logout','PostsController@logout');
 
-//Route::get('/index', 'UsersController@countFollowings');
-
-  //プロフィール編集画面
+  //【プロフィール編集画面】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/profile','UsersController@profile')->name('profile');
-  //他ユーザープロフィール画面
+
+  //【他ユーザープロフィール画面】::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('{id}/profile','UsersController@otherProfile')->name('other_profile');
 
-//プロフィール編集
+//【プロフィール編集】:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::post('/profile/update', 'UsersController@update')->name('profile_update');
-//プロフィール編集[password]
+
+//【プロフィール編集/password】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::put('/password_change', 'UserController@passwordUpdate')->name('password_edit');
 
-//[検索]ユーザー名
-
+//【検索:ユーザー名】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::get('/search','UsersController@index');
 Route::post('/search/result','UsersController@search')->name('search/result');
 
-Route::get('/follow-list','PostsController@index');
-Route::get('/follower-list','PostsController@index');
-Route::get('/logout','PostsController@logout');
+//【follow/followerリスト】:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Route::get('/follow', 'FollowsController@followList');
+Route::get('/follower', 'FollowsController@followerList');
 
+//【投稿:編集・投稿・削除】::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::post('post/update','PostsController@update');//ツイート編集
-
-//編集・投稿・削除
-Route::get('{id}/modal', 'PostsController@modal');
 Route::prefix('post')
     ->middleware('auth')
     ->group(function (){
@@ -65,15 +64,7 @@ Route::prefix('post')
       Route::get('{id}/delete','PostsController@delete')->name('delete');//ツイート削除
     });
 
-    //follow
-Route::get('/follow', 'FollowsController@followList');
-Route::get('/follower', 'FollowsController@followerList');
-
-//Route::group(['middleware' => 'auth'],function(){
-  //Route::get('/followList', 'FollowsController@followList');
-//});
-
-
+//【フォロ機能/フォロー解除機能】:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::post('user/follow','FollowsController@follow')->name('user.follow');
 Route::post('user/un-follow','FollowsController@unFollow')->name('un.follow');
 

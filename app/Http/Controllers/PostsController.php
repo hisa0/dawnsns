@@ -13,7 +13,7 @@ class PostsController extends Controller
         $this->middleware('auth');
     }
 
-//::::::バリデーションルール:::::://
+//[バリデーションルール]:::::::::::::::::::::::::::::::::::::::::::::::::::
     public function validator(Request $request,$id)
     {
         $validateData = $request->validate([
@@ -23,15 +23,11 @@ class PostsController extends Controller
             'password_confirmation' => 'required',
         ]);
     }
-//::::::投稿内容表示:::::://
+//[投稿内容表示]::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function index()
     {
         $user = Auth::id();//認証ユーザーID
 
-        $id = DB::table('posts')
-            ->select('id','posts')
-            ->get();
-
         $posts = DB::table('posts')
         ->leftJoin('follows','follows.follow','=','posts.user_id')
         ->leftJoin('users','users.id','=','posts.user_id')
@@ -41,9 +37,6 @@ class PostsController extends Controller
             'users.username','users.images'
             )->latest()->get();
 
-        $user_date = DB::table('users')
-            ->get();
-
         $follow_count = DB::table('follows')
             ->where('follow',$user)
             ->count();
@@ -52,59 +45,23 @@ class PostsController extends Controller
             ->where('follower',$user)
             ->count();
 
-        return view('posts.index',['id'=>$id,'posts' => $posts,'posts' => $posts,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('posts.index',['posts' => $posts,'posts' => $posts,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
-        public function modal($id)
-        {
-
-        $post = DB::table('posts')
-        ->where('id','=',$id)
-        ->first();
-
-        $user = Auth::id();//認証ユーザーID
-
-        $id = DB::table('posts')
-            ->select('id','posts')
-            ->get();
-
-        $posts = DB::table('posts')
-        ->leftJoin('follows','follows.follow','=','posts.user_id')
-        ->leftJoin('users','users.id','=','posts.user_id')
-        ->select(
-            'posts.id','posts.user_id','posts.posts','posts.created_at',
-            'follows.follow','follows.follower',
-            'users.username','users.images'
-            )->latest()->get();
-
-        $user_date = DB::table('users')
-            ->get();
-
-        $follow_count = DB::table('follows')
-            ->where('follow',$user)
-            ->count();
-
-        $follower_count = DB::table('follows')
-            ->where('follower',$user)
-            ->count();
-
-        return view('posts.index',['id'=>$id,'posts' => $posts,'posts' => $posts,'follow_count' => $follow_count,'follower_count' => $follower_count]);
-        }
-
+//[register]:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function register()
     {
         return view('/index',['posts'=>$posts]);
     }
-
+//[logout]:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function logout(Request $request)
     {
         Auth::logout();
         return redirect('login');
     }
-//::::::投稿機能:::::://
+//[新規投稿機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function create(Request $request)
     {
-        $username = DB::table('users');
         $user = Auth::id();
         $post = $request->input('newPost');
         DB::table('posts')->insert([
@@ -114,7 +71,7 @@ class PostsController extends Controller
         ]);
         return redirect('/top');
     }
-//::::::編集処理:::::://
+//[投稿編集機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function update(Request $request)
     {
         $id = $request->input('id');
@@ -128,7 +85,7 @@ class PostsController extends Controller
 
         return redirect('/top');
     }
-//::::::投稿削除:::::://
+//[投稿削除機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function delete($id)
     {
         DB::table('posts')
@@ -137,10 +94,4 @@ class PostsController extends Controller
 
         return redirect('/top');
     }
-
-public function followCount()
-{
-
-        return view('posts.index');
-}
 }
