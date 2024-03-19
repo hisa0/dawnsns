@@ -20,12 +20,14 @@
       @if(Auth::user()->id == $post->follower)
             <div class="tweet_all">
                   <div class="tweet_data">
-                        <div class="tweet_i_n_t">
-                              <a href="#"><img src="/storage/images/{{$post->images }}" class= "user_icon"></a>
-                                                <p class="tweet_name">{{ $post->username}}</p>
-                                                <p class="tweet_time">{{ $post->created_at }}</p>
+                        <div class="tweet_i_n_t_t">
+                              <div class="tweet_i_n_t">
+                                          <a href="#"><img src="/storage/images/{{$post->images }}" class= "user_icon"></a>
+                                          <p class="tweet_name">{{ $post->username}}</p>
+                                          <p class="tweet_time">{{ $post->created_at }}</p>
+                              </div>
+                              <div class="tweet_text">{{ $post->posts }}</div>
                         </div>
-                  <div class="tweet_text">{{ $post->posts }}</div>
                   </div>
             </div>
       @endif

@@ -6,7 +6,7 @@
         <div class="profile-box">
           {!! Form::open(['url'=>'/profile/update','files' => true]) !!}
               <div class="profile_icon">
-                <img src="{{ asset('/images/dawn.png')}}"alt = "dawn.png" class="user_icon">
+                <img src="{{ asset('/images/dawn.png')}}"alt = "dawn.png" class="user_icon"/>
               </div>
                 <div class="profiles">
                           <ul class="profile-date">

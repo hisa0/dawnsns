@@ -85,17 +85,28 @@ class UsersController extends Controller
     //:::検索機能::://
     public function search(Request $request)
     {
+        $user = Auth::id();
         $query = DB::table('users')
-                ->leftJoin('follows','follows.follow','=','users.id')
-                ->select('users.id','users.username','follows.follower')
-                ->get();
+        ->leftJoin('follows','follows.follow','=','users.id')
+        ->select(
+                'users.id','users.username','users.images',
+                'follows.follow','follows.follower');
+
         $keyword = $request->input('keyword');
         if(!empty($keyword)) {
         $query = $query->where('username', 'LIKE', "%{$keyword}%");
         }
 
-        $users_src = $query->get();
-        return view('users.search', ['users_src' => $users_src,'keyword' =>$keyword]);
+        $users = $query->get();
+
+        $follow_count = DB::table('follows')//followユーザー数
+                ->where('follower',$user)
+                ->count();
+        $follower_count = DB::table('follows')//followerユーザー数
+                ->where('follow',$user)
+                ->count();
+
+        return view('users.search', ['users' => $users,'keyword' =>$keyword,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
 
