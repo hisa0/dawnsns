@@ -37,6 +37,7 @@ class PostsController extends Controller
             'users.username','users.images'
             )->latest()->get();
 
+
         $follow_count = DB::table('follows')
             ->where('follow',$user)
             ->count();

@@ -104,16 +104,6 @@ class UsersController extends Controller
 
         return view('users.search', ['users' => $users,'keyword' =>$keyword,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
-//[image保存機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    public function image(Request $request, User $user)
-    {
-        $images = $request->image;
-
-        $filePath = $images->store('public');
-        $user->image = str_replace('public','',$images);
-        $user->save();
-        return redirect("/user/{$user->id}")->with('user',$user);
-    }
 
 //[profile更新機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::
     public function update(Request $request)
@@ -131,15 +121,14 @@ class UsersController extends Controller
                 'mail'=> $new_mail,
                 'bio' => $new_bio,
             ]);
+    if(!empty($file)){
         $file_name = $request->file('file')->getClientOriginalName();
         $request->file('file')->storeAs('public',$file_name);
-    if(!empty($file)){
             DB::table('users')
             ->where('id', Auth::id())
-            ->update(['images' => $file
+            ->update(['images' => $file_name
                     ]);
-            }
-
+        }
 
     if(!empty($new_pass)){
             DB::table('users')

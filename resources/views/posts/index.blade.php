@@ -8,7 +8,7 @@
           <div class="tweet">
               @foreach ($posts as $post)
                     @if(Auth::user()->id == $post->user_id)
-                      <h1><a><img src="/storage/images/{{$post->images }}" class= "user_icon"></a></h1>
+                      <h1><a><img src="{{asset('storage/'.$post->images) }}" class= "user_icon"></a></h1>
                       @endif
                   @break
               @endforeach
