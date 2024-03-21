@@ -131,6 +131,15 @@ class UsersController extends Controller
                 'mail'=> $new_mail,
                 'bio' => $new_bio,
             ]);
+        $file_name = $request->file('file')->getClientOriginalName();
+        $request->file('file')->storeAs('public',$file_name);
+    if(!empty($file)){
+            DB::table('users')
+            ->where('id', Auth::id())
+            ->update(['images' => $file
+                    ]);
+            }
+
 
     if(!empty($new_pass)){
             DB::table('users')
@@ -138,14 +147,6 @@ class UsersController extends Controller
             ->update([
             'password' => $new_pass,
             ]);
-        }
-    if(!empty($file)){
-            DB::table('users')
-            ->where('id', Auth::id())
-            ->update([
-                'images' => $file
-            ]);
-            $request->file('file')->storeAs('public/storage/images',$file);
             }
             return redirect('/profile');
         }
