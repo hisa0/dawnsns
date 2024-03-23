@@ -6,7 +6,7 @@
         <div class="profile-box">
           {!! Form::open(['url'=>'/profile/update','files' => true]) !!}
               <div class="profile_icon">
-                <img src="{{ asset('/images/dawn.png')}}"alt = "dawn.png" class="user_icon"/>
+                <img src="images/{{ Auth::user()->images }}" alt = "dawn.png" class="user_icon"/>
               </div>
                 <div class="profiles">
                           <ul class="profile-date">
@@ -57,7 +57,7 @@
             @foreach($users as $user)
                 <div class="profiles-o">
                       <div class="profile-o-u">
-                        <a href="#"><img src="/storage/images/{{ $user->images }}" class= "user_icon"></a>
+                        <a href="#"><img src="{{ asset('images/'.$user->images) }}" class= "user_icon"></a>
                           <ul>
                             <li class="profile-o">{!! Form::label('profile','Name') !!}</li>
                             <li class="profile-name-o">{{ $user->username }}</li>
@@ -104,7 +104,7 @@
                 <div class="tweet_data">
                   <div class="tweet_i_n_t_t">
                     <div class="tweet_i_n_t">
-                      <a href="#"><img src="/storage/images/{{ $post->images }}" class= "user_icon"></a>
+                      <a href="#"><img src="{{ asset('images/'.$post->images) }}" class= "user_icon"></a>
                       <p class="tweet_name">{{ $post->username}}</p>
                       <p class="tweet_time">{{ $post->created_at }}</p>
                     </div>

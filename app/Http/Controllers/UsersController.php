@@ -66,7 +66,7 @@ class UsersController extends Controller
         $user = Auth::id();
         $users = DB::table('users')
                 ->leftJoin('follows','follows.follow','=','users.id')
-                ->select('users.id','users.username','follows.follower')
+                ->select('users.id','users.username','users.images','follows.follower')
                 ->get();
 
         $follow_count = DB::table('follows')//followユーザー数
@@ -94,6 +94,7 @@ class UsersController extends Controller
         $query = $query->where('username', 'LIKE', "%{$keyword}%");
         }
         $users = $query->get();
+        dd($users);
 
         $follow_count = DB::table('follows')//followユーザー数
                 ->where('follower',$user)
@@ -102,7 +103,7 @@ class UsersController extends Controller
                 ->where('follow',$user)
                 ->count();
 
-        return view('users.search', ['users' => $users,'keyword' =>$keyword,'follow_count' => $follow_count,'follower_count' => $follower_count]);
+        return view('users.search', ['query'=>$query,'users' => $users,'keyword' =>$keyword,'follow_count' => $follow_count,'follower_count' => $follower_count]);
     }
 
 //[profile更新機能]::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -123,7 +124,7 @@ class UsersController extends Controller
             ]);
     if(!empty($file)){
         $file_name = $request->file('file')->getClientOriginalName();
-        $request->file('file')->storeAs('public',$file_name);
+        $request->file('file')->storeAs('public/images',$file_name);
             DB::table('users')
             ->where('id', Auth::id())
             ->update(['images' => $file_name

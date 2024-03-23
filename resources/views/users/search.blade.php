@@ -24,7 +24,7 @@
                   <!--フォロー済ユーザー表示-->
                     @if(Auth::user()->id == $user->follower)
                         <ul>
-                          <li class="search-result-image"><img src="{{ asset('images/dawn.png')}}"alt = "dawn.png" class="user_icon"><li>
+                          <li class="search-result-image"><img src="{{ asset('images/'.$user->images) }}"alt = "dawn.png" class="user_icon"><li>
                           <li class="search-result-name">{{ $user->username }}</li>
                           {!! Form::open(['url' => 'user/un-follow']) !!}
                           {!! Form::hidden('id',$user->id) !!}
@@ -37,7 +37,7 @@
                     @elseif(Auth::user()->id != $user->id)
                       @if (Auth::user()->id != $user->follower)
                         <ul>
-                          <li class="search-result-image"><img src="{{ asset('images/dawn.png')}}"alt = "dawn.png" class="user_icon"><li>
+                          <li class="search-result-image"><img src="{{ asset('images/'.$user->images) }}" alt = "dawn.png" class="user_icon"><li>
                           <li class="search-result-name">{{ $user->username }}</li>
                           {!! Form::open(['url' => 'user/follow']) !!}
                           {!! Form::hidden('id',$user->id) !!}

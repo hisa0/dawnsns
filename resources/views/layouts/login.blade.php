@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+@csrf
 <meta charset="utf-8" />
     <!--IEブラウザ対策-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,7 +44,7 @@
                     </ul>
         </div>
         <div class="header-icon">
-                    <a href="#"><img src="/storage/images/{{ Auth::user()->images }}" class= "user_icon header_user_icon"></a>
+                    <a href="#"><img src="images/{{ Auth::user()->images }}" class= "user_icon header_user_icon"></a>
         </div>
     </div>
 
